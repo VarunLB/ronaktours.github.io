@@ -70,7 +70,7 @@
     <label>Number of Adults:</label>
 <div style="display:flex; align-items:center; gap:10px;">
   <button type="button" onclick="changeAdults(-1)">-</button>
-  <input type="number" id="adults" value="1" min="1" readonly style="width:50px; text-align:center;">
+  <input type="number" id="adults" value="0" min="0" readonly style="width:50px; text-align:center;">
   <button type="button" onclick="changeAdults(1)">+</button>
 </div>
     
@@ -117,7 +117,9 @@ function updateFare() {
   const to = document.getElementById('to').value;
   const category = document.getElementById('category').value;
   const adults = parseInt(document.getElementById('adults').value);
-  const fare = busPrices[to] ? busPrices[to][category] * adults : 0;
+  
+  const fare = (adults > 0 && busPrices[to]) ? busPrices[to][category] * adults : 0;
+  
   document.getElementById('fareInfo').innerHTML = "<b>Fare:</b> ₹" + fare;
 }
 
@@ -132,11 +134,12 @@ function changeAdults(val) {
   let adultsInput = document.getElementById('adults');
   let current = parseInt(adultsInput.value);
   current += val;
-  if(current < 1) current = 1; // minimum 1 adult
+  if(current < 0) current = 0; // minimum 0
   adultsInput.value = current;
   
   // Show gender only if 1 adult
-  toggleGender();
+  document.getElementById('genderDiv').style.display = (current === 1) ? 'block' : 'none';
+  
   // Update fare automatically
   updateFare();
 }
@@ -166,5 +169,6 @@ function bookWhatsApp() {
 </body>
 
 </html>
+
 
 
