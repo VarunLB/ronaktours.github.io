@@ -112,16 +112,28 @@ fetch('prices.json')
     updateFare();
   });
 
-// Update fare dynamically
-function updateFare() {
+<script>
+// Remove any existing hardcoded busPrices object
+
+let busPrices = {};
+
+// Fetch dynamic fares from prices.json
+fetch('prices.json')
+  .then(res => res.json())
+  .then(data => {
+    busPrices = data;
+    updateFare(); // update fare when page loads
+  });
+
+// Fare calculation function (keep your existing one or replace with this)
+function updateFare(){
   const to = document.getElementById('to').value;
   const category = document.getElementById('category').value;
   const adults = parseInt(document.getElementById('adults').value);
-  
   const fare = (adults > 0 && busPrices[to]) ? busPrices[to][category] * adults : 0;
-  
   document.getElementById('fareInfo').innerHTML = "<b>Fare:</b> ₹" + fare;
 }
+</script>
 
 // Show gender dropdown for 1 adult
 function toggleGender() {
@@ -158,17 +170,18 @@ function bookWhatsApp() {
   const fare = busPrices[to][category] * parseInt(adults);
   const message = `Inquiry for Deesa → ${to} on ${date}.\nCategory: ${category}\nAdults: ${adults}${gender ? ' ('+gender+')' : ''}\nFare: ₹${fare}`;
 
-  const number1 = "919429286586";
+  const number1 = "9429286586";
   const number2 = "9375224034";
-  
-  window.open(`https://api.whatsapp.com/send?phone=${number1}&text=${encodeURIComponent(message)}`);
-  window.open(`https://api.whatsapp.com/send?phone=${number2}&text=${encodeURIComponent(message)}`);
+window.open(`https://api.whatsapp.com/send?phone=${number1}&text=${encodeURIComponent(message)}`);
+window.open(`https://api.whatsapp.com/send?phone=${number2}&text=${encodeURIComponent(message)}`);
+
 }
 </script>
 
 </body>
 
 </html>
+
 
 
 
