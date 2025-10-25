@@ -68,12 +68,11 @@
     </select>
     
     <label>Number of Adults:</label>
-    <select id="adults" onchange="toggleGender()">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select>
+<div style="display:flex; align-items:center; gap:10px;">
+  <button type="button" onclick="changeAdults(-1)">-</button>
+  <input type="number" id="adults" value="1" min="1" readonly style="width:50px; text-align:center;">
+  <button type="button" onclick="changeAdults(1)">+</button>
+</div>
     
     <div class="adult-gender" id="genderDiv" style="display:none;">
       <label>Gender:</label>
@@ -129,6 +128,19 @@ function toggleGender() {
   updateFare();
 }
 
+function changeAdults(val) {
+  let adultsInput = document.getElementById('adults');
+  let current = parseInt(adultsInput.value);
+  current += val;
+  if(current < 1) current = 1; // minimum 1 adult
+  adultsInput.value = current;
+  
+  // Show gender only if 1 adult
+  toggleGender();
+  // Update fare automatically
+  updateFare();
+}
+
 // WhatsApp booking for 2 numbers
 function bookWhatsApp() {
   const from = document.getElementById('from').value;
@@ -154,4 +166,5 @@ function bookWhatsApp() {
 </body>
 
 </html>
+
 
