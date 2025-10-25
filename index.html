@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ronak Tours & Travels</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f2f2; }
+  header { background:#003399; color:white; text-align:center; padding:20px; }
+  header h1 { margin:0; font-size:24px; }
+  .container { padding:15px; max-width:900px; margin:auto; }
+  .marquee { background:#fff; padding:10px; border-radius:10px; margin-bottom:15px; overflow:hidden; white-space:nowrap; }
+  .marquee span { display:inline-block; padding:0 40px; font-weight:bold; }
+  .card { background:#fff; padding:15px; border-radius:10px; margin-bottom:15px; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+  .route { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; border-left:4px solid #003399; padding-left:10px; }
+  .bus-icon { font-size:30px; margin-right:10px; }
+  button { padding:10px; border:none; border-radius:6px; background:#00802b; color:white; font-size:16px; cursor:pointer; }
+  button:disabled { background:#ccc; cursor:default; }
+  select, input { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid gray; }
+  footer { text-align:center; font-size:12px; padding:12px; color:#555; }
+  @media(max-width:720px){ .route{flex-direction:column; align-items:flex-start;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Ronak Tours & Travels</h1>
+  <p>Deesa — Bus Booking & Travel Service</p>
+</header>
+
+<div class="container">
+
+  <!-- Marquee / Slider -->
+  <div class="marquee" id="marquee">
+    <span>Deesa → Mumbai</span>
+    <span>Deesa → Dwarka</span>
+    <span>Deesa → Jodhpur</span>
+    <span>Deesa → Ajmer</span>
+    <span>Deesa → Jaipur</span>
+    <span>Deesa → Delhi</span>
+  </div>
+
+  <!-- Search Bus -->
+  <div class="card">
+    <h3>Search Bus</h3>
+    <label>From:</label>
+    <select id="from"><option>Deesa</option></select>
+    <label>To:</label>
+    <select id="to">
+      <option>Mumbai</option>
+      <option>Dwarka</option>
+      <option>Jodhpur</option>
+      <option>Ajmer</option>
+      <option>Jaipur</option>
+      <option>Delhi</option>
+    </select>
+    <label>Date:</label>
+    <input type="date" id="date">
+    <button onclick="searchBus()">Search Bus</button>
+    <div id="result"></div>
+  </div>
+
+  <!-- Group / Marriage / Picnic Booking -->
+  <div class="card">
+    <h3>Group / Marriage / Picnic Bus Booking</h3>
+    <button onclick="window.location.href='https://wa.me/919429286586?text=I want to book a bus for Group/Marriage/Picnic'">
+      Send Inquiry on WhatsApp
+    </button>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Ronak Tours & Travels — Deesa. Open in mobile for best experience.
+</footer>
+
+<script>
+// Bus Data with dynamic seat availability
+const busData = {
+  "Mumbai": { time:"6:30 PM", fare:"₹1200", seats:6 },
+  "Dwarka": { time:"7:00 PM", fare:"₹800", seats:10 },
+  "Jodhpur": { time:"8:00 PM", fare:"₹700", seats:4 },
+  "Ajmer": { time:"7:30 PM", fare:"₹900", seats:8 },
+  "Jaipur": { time:"6:45 PM", fare:"₹1100", seats:5 },
+  "Delhi": { time:"5:45 PM", fare:"₹1500", seats:3 }
+};
+
+function searchBus() {
+  const to = document.getElementById('to').value;
+  const date = document.getElementById('date').value;
+  if(!date){ alert("Please select journey date"); return; }
+
+  const bus = busData[to];
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '';
+
+  const busAvailable = bus.seats>0;
+  const buttonHTML = busAvailable ? 
+    `<button onclick="window.open('https://wa.me/919429286586?text=Inquiry for Deesa to ${to} on ${date} — Time: ${bus.time}, Fare: ${bus.fare}')" >Book on WhatsApp</button>` :
+    `<button disabled>Full</button>`;
+
+  resultDiv.innerHTML = `
+    <div class="route">
+      <div><span class="bus-icon">🚌</span> Deesa → ${to} <br>Time: ${bus.time}, Fare: ${bus.fare}, Seats left: ${bus.seats}</div>
+      <div>${buttonHTML}</div>
+    </div>
+  `;
+}
+
+// Marquee animation
+const marquee = document.getElementById('marquee');
+let scrollPos = 0;
+function animateMarquee() {
+  scrollPos -= 1;
+  if(Math.abs(scrollPos) > marquee.scrollWidth/2) scrollPos = 0;
+  marquee.scrollLeft = -scrollPos;
+  requestAnimationFrame(animateMarquee);
+}
+animateMarquee();
+</script>
+
+</body>
+</html>
