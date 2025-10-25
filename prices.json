@@ -1,0 +1,8 @@
+{
+  "Mumbai": {"AC Sleeper": 1200, "AC Seater": 700, "Non-AC Sleeper": 800, "Non-AC Seater": 500},
+  "Dwarka": {"AC Sleeper": 1000, "AC Seater": 600, "Non-AC Sleeper": 600, "Non-AC Seater": 400},
+  "Jodhpur": {"AC Sleeper": 1100, "AC Seater": 650, "Non-AC Sleeper": 700, "Non-AC Seater": 450},
+  "Ajmer": {"AC Sleeper": 1050, "AC Seater": 620, "Non-AC Sleeper": 680, "Non-AC Seater": 420},
+  "Jaipur": {"AC Sleeper": 1150, "AC Seater": 700, "Non-AC Sleeper": 720, "Non-AC Seater": 450},
+  "Delhi": {"AC Sleeper": 1500, "AC Seater": 900, "Non-AC Sleeper": 1200, "Non-AC Seater": 700}
+}
